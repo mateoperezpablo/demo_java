@@ -94,7 +94,83 @@ public class Main {
 	}
 	
 	public static void lDrivers(Scanner sc) {
-		System.out.println("Conductores");
+		System.out.println("Listado de conductores: ");
+		System.out.println("ID\tNOMBRE\t\tAPELLIDO\tLICENCIA");
+		ArrayList<Driver> arr = Driver.getAll();
+		for(int i=0;i<arr.size();i++) {
+			Driver d = arr.get(i);
+			System.out.println(d.getId() + "\t" + d.getName() +"\t\t" + d.getSurename() + "\t\t" + d.getLicense());
+		}
+		
+		int opt = -1;
+		
+		System.out.println("Selecciona una opción (cualquier otro número saldrá del menú): ");
+		System.out.println("1. Nuevo conductor");
+		System.out.println("2. Modificar conductor");
+		System.out.println("3. Borrar conductor");
+		opt=sc.nextInt();
+		
+		if(opt==1) {
+			//Crear conductor
+			Driver d = new Driver();
+			System.out.println("Introduce el nombre: ");
+			d.setName(sc.next());
+			System.out.println("Introduce el apellido: ");
+			d.setSurename(sc.next());
+			System.out.println("Introduce la licencia del vehículo: ");
+			d.setLicense(sc.next().charAt(0));
+			//CREAR
+			System.out.println(Driver.create(d));
+		}
+		else if (opt==2) {
+			System.out.println("Introduce la ID del conductor a modificar:" );
+			long id = sc.nextLong();
+			Driver d = new Driver();
+			for(Driver de:arr) {
+				if(de.getId()==id) {
+					d.setName(de.getName());
+					d.setSurename(de.getSurename());
+					d.setLicense(de.getLicense());
+					d.setId(de.getId());;
+				}
+			}
+			if(d.getId()!=-1) {
+				System.out.println("Introduce el nombre: ");
+				d.setName(sc.next());
+				System.out.println("Introduce el apellido: ");
+				d.setSurename(sc.next());
+				System.out.println("Introduce la licencia del conductor: ");
+				d.setLicense(sc.next().charAt(0));
+				//ACTUALIZAR
+				Driver.update(id, d);
+				System.out.println("Conductor actualizado");
+			}
+			else {
+				System.out.println("Conductor no encontrado");
+			}
+		}
+		else if (opt==3) {
+			//Borrar conductor
+			System.out.println("Introduce la ID del conductor a borrar:" );
+			long id = sc.nextLong();
+			Driver d = new Driver();
+			for(Driver de:arr) {
+				if(de.getId()==id) {
+					d.setName(de.getName());
+					d.setSurename(de.getSurename());
+					d.setLicense(de.getLicense());
+					d.setId(de.getId());;
+				}
+			}
+			if(d.getId()!=-1) {
+				//Borrar
+				Driver.erase(id);
+				System.out.println("Conductor borrado");
+			}
+			else {
+				System.out.println("Conductor no encontrado");
+			}
+		}
 	}
 	
 	public static void lTrips(Scanner sc) {
