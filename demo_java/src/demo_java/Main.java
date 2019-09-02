@@ -1,6 +1,7 @@
 package demo_java;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -174,11 +175,21 @@ public class Main {
 	}
 	
 	public static void lTrips(Scanner sc) {
-		System.out.println("Viajes");
+		System.out.println("Listado de viajes:");
+		System.out.println("VEHICULO\tCONDUCTOR\tFECHA");
+		ArrayList<Trip> arr = Trip.getAll();
+		for(int i=0;i<arr.size();i++) {
+			Trip t = arr.get(i);
+			System.out.println(t.getVehicle() + "\t\t" + t.getDriver() + "\t\t" + t.getDate().toString());
+		}
 	}
 	
 	public static void newTrip(Scanner sc) {
-		System.out.println("Nuevo");
+		System.out.println("Crear nuevo viaje");
+		System.out.println("Por favor, introduzca una fecha (yyyy/mm/dd): ");
+		String fe = sc.next();
+		Date d = new Date(fe);
+		System.out.println(d);
 	}
 
 	public static void main(String[] args) {
