@@ -84,7 +84,7 @@ public class DriverCAD {
 		Statement s;
 		try {
 			s = con.createStatement();
-			ResultSet rs = s.executeQuery ("SELECT DISTINCT id,name,surename,license FROM `trips` INNER JOIN `drivers` on trips.driver = drivers.id and drivers.license = '" + license + "' and not trips.date = '" + sd + "'");
+			ResultSet rs = s.executeQuery ("SELECT DISTINCT id,name,surename,license FROM `trips` INNER JOIN `drivers` on trips.driver = drivers.id and drivers.license = '" + license + "' and trips.date = '" + sd + "'");
 			while (rs.next())
 			{
 				Driver dr = new Driver();

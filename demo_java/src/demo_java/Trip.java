@@ -14,6 +14,10 @@ public class Trip {
 		return arr;
 	}
 	
+	public static int insert(Trip t) {
+		return TripCAD.insert(t);
+	}
+	
 	public Trip() {
 	}
 	

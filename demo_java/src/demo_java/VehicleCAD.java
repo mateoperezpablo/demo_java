@@ -54,11 +54,13 @@ public class VehicleCAD {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 		
 		String sd = formatter.format(d);
+		
+		System.out.println(sd);
 				
 		Statement s;
 		try {
 			s = con.createStatement();
-			ResultSet rs = s.executeQuery ("SELECT DISTINCT id,brand,model,plate,license FROM trips INNER JOIN vehicles ON trips.vehicle = vehicles.id AND NOT trips.date = '" + sd + "'");
+			ResultSet rs = s.executeQuery ("SELECT DISTINCT id,brand,model,plate,license FROM trips INNER JOIN vehicles ON trips.vehicle = vehicles.id AND trips.date = '" + sd + "'");
 			while (rs.next())
 			{
 			    Vehicle v = new Vehicle();

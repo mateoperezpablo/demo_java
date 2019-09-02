@@ -200,7 +200,20 @@ public class Main {
 		}
 		else {
 			System.out.println("Vehículos disponibles para esa fecha: ");
-			ArrayList<Vehicle> vdisp = Vehicle.getNotInDate(d);
+			ArrayList<Vehicle> vFecha = Vehicle.getNotInDate(d);
+			ArrayList<Vehicle> vTodos = Vehicle.getAll();
+			ArrayList<Vehicle> vdisp = new ArrayList<Vehicle>();
+			
+			for(int i=0;i<vTodos.size();i++) {
+				for(int j=0;j<vFecha.size();j++) {
+					if(vTodos.get(i).getId() == vFecha.get(j).getId()) {
+						vTodos.remove(i);
+						if(i>=1) i--;
+					}
+				}
+			}
+			vdisp=vTodos;
+			
 			for(int i=0;i<vdisp.size();i++) {
 				Vehicle v = vdisp.get(i);
 				System.out.println(v.getId() + " " + v.getPlate() + " " + v.getModel() + " " + v.getBrand() + " " + v.getLicenseRequired());
@@ -226,7 +239,19 @@ public class Main {
 				else {
 					char lic = v.getLicenseRequired();
 					System.out.println("Conductores disponibles para esa fecha con licencia para ese vehículo: ");
-					ArrayList<Driver> ddisp = Driver.disp(d, lic);
+					ArrayList<Driver> dFecha = Driver.disp(d, lic);
+					ArrayList<Driver> dTodos = Driver.getAll();
+					ArrayList<Driver> ddisp = new ArrayList<Driver>();
+					
+					for(int i=0;i<dTodos.size();i++) {
+						for(int j=0;j<dFecha.size();j++) {
+							if(dTodos.get(i).getId() == dFecha.get(j).getId()) {
+								dTodos.remove(i);
+								if(i>=1) i--;
+							}
+						}
+					}
+					ddisp=dTodos;
 					for(int i=0;i<ddisp.size();i++) {
 						Driver dr = ddisp.get(i);
 						System.out.println(dr.getId() + " " + dr.getName()  + " " + dr.getSurename() + " " + dr.getLicense());
@@ -251,6 +276,12 @@ public class Main {
 						}
 						else {
 							//Tenemos al vehículo en v y al conductor en dri, fecha en d
+							Trip tr = new Trip();
+							tr.setDate(d);
+							tr.setDriver(dri.getId());
+							tr.setVehicle(v.getId());
+							Trip.insert(tr);
+							System.out.println("Viaje insertado correctamente");
 						}
 					}
 				}
