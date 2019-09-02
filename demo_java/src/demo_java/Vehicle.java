@@ -1,6 +1,7 @@
 package demo_java;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Vehicle {
 	private long id;
@@ -27,6 +28,12 @@ public class Vehicle {
 	
 	public static ArrayList<Vehicle> getAll(){
 		ArrayList<Vehicle> arr = VehicleCAD.getAll();
+		
+		return arr;
+	}
+	
+	public static ArrayList<Vehicle> getNotInDate(Date d){
+		ArrayList<Vehicle> arr = VehicleCAD.getNotInDate(d);
 		
 		return arr;
 	}

@@ -189,7 +189,74 @@ public class Main {
 		System.out.println("Por favor, introduzca una fecha (yyyy/mm/dd): ");
 		String fe = sc.next();
 		Date d = new Date(fe);
+		Date today = new Date();
+		today.setHours(0);
+		today.setMinutes(0);
+		today.setSeconds(0);
 		System.out.println(d);
+		System.out.println(today);
+		if(today.after(d) && !(d.toString().contentEquals(today.toString()))) {
+			System.out.println("Lo siento, no puedes hacer viajes en el pasado");
+		}
+		else {
+			System.out.println("Vehículos disponibles para esa fecha: ");
+			ArrayList<Vehicle> vdisp = Vehicle.getNotInDate(d);
+			for(int i=0;i<vdisp.size();i++) {
+				Vehicle v = vdisp.get(i);
+				System.out.println(v.getId() + " " + v.getPlate() + " " + v.getModel() + " " + v.getBrand() + " " + v.getLicenseRequired());
+			}
+			if(vdisp.size()==0) {
+				System.out.println("Lo sentimos, no hay coches disponibles para ese día");
+			}
+			else {
+				System.out.println("Por favor. introduce la ID del coche que deseas");
+				long idCoche = sc.nextLong();
+				Vehicle v = new Vehicle();
+				for(Vehicle ve:vdisp) {
+					if(ve.getId()==idCoche) {
+						v.setBrand(ve.getBrand());
+						v.setModel(ve.getModel());
+						v.setPlate(ve.getPlate());
+						v.setId(ve.getId());
+						v.setLicenseRequired(ve.getLicenseRequired());
+					}
+				}
+				
+				if(v.getId()==-1) System.out.println("ID incorrecta");
+				else {
+					char lic = v.getLicenseRequired();
+					System.out.println("Conductores disponibles para esa fecha con licencia para ese vehículo: ");
+					ArrayList<Driver> ddisp = Driver.disp(d, lic);
+					for(int i=0;i<ddisp.size();i++) {
+						Driver dr = ddisp.get(i);
+						System.out.println(dr.getId() + " " + dr.getName()  + " " + dr.getSurename() + " " + dr.getLicense());
+					}
+					
+					if(ddisp.size()==0) System.out.println("Lo sentimos, no hay conductores disponibles para esa fecha y/o vehiculos");
+					else {
+						System.out.println("Introduce la ID del conductor que deseas:" );
+						long id = sc.nextLong();
+						Driver dri = new Driver();
+						for(Driver de:ddisp) {
+							if(de.getId()==id) {
+								dri.setName(de.getName());
+								dri.setSurename(de.getSurename());
+								dri.setLicense(de.getLicense());
+								dri.setId(de.getId());;
+							}
+						}
+						
+						if(dri.getId()==-1) {
+							System.out.println("Error, id incorrecta");
+						}
+						else {
+							//Tenemos al vehículo en v y al conductor en dri, fecha en d
+						}
+					}
+				}
+				
+			}
+		}
 	}
 
 	public static void main(String[] args) {

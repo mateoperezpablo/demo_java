@@ -1,6 +1,7 @@
 package demo_java;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Driver {
 	private long id;
@@ -30,6 +31,12 @@ public class Driver {
 	
 	public static int erase(long id) {
 		return DriverCAD.erase(id);
+	}
+	
+	public static ArrayList<Driver> disp(Date d, char license){
+		ArrayList<Driver> arr = DriverCAD.disp(d, license);
+		
+		return arr;
 	}
 	
 	public Driver(long id, String name, String surename, char license) {
